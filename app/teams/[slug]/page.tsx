@@ -3,7 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
-interface Props { params: { slug: string } }
+interface Props { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
   const teams = await getTeams();
@@ -11,7 +11,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const team = await getTeam(parseInt(params.slug));
+  const { slug } = await params;
+  const team = await getTeam(parseInt(slug));
   return {
     title: team ? `${team.name} — FIFA World Cup 2026` : "Team — FIFA World Cup 2026",
     description: team ? `${team.name} squad and stats at the FIFA World Cup 2026.` : "",
@@ -28,7 +29,8 @@ const F = {
 const POSITIONS = ["Goalkeeper", "Defence", "Midfield", "Offence"];
 
 export default async function TeamDetailPage({ params }: Props) {
-  const team = await getTeam(parseInt(params.slug));
+  const { slug } = await params;
+  const team = await getTeam(parseInt(slug));
   if (!team) return notFound();
 
   return (

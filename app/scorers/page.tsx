@@ -78,44 +78,46 @@ export default async function ScorersPage() {
             </div>
 
             {/* Full table */}
-            <div style={{ border: "0.5px solid #1F1F1F" }}>
-              <div style={{ background: "#0A0A0A", borderBottom: "0.5px solid #1F1F1F" }}>
+            <div className="overflow-x-auto" style={{ border: "0.5px solid #1F1F1F" }}>
+              <div style={{ background: "#0A0A0A", borderBottom: "0.5px solid #1F1F1F", minWidth: "800px" }}>
                 <div style={{ display: "grid", gridTemplateColumns: "48px 1fr 160px 80px 80px 80px", alignItems: "center", padding: "10px 24px" }}>
                   {["#","Player","Nation","Goals","Assists","Pens"].map((h) => (
                     <span key={h} style={{ fontFamily: F.condensed, fontWeight: 500, fontSize: 11, color: "#444", letterSpacing: "0.12em", textTransform: "uppercase", textAlign: h === "Player" || h === "Nation" || h === "#" ? "left" : "center" }}>{h}</span>
                   ))}
                 </div>
               </div>
-              {scorers.map((s, i) => (
-                <div
-                  key={s.player.id}
-                  className="row-hover"
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "48px 1fr 160px 80px 80px 80px",
-                    alignItems: "center",
-                    padding: "14px 24px",
-                    borderBottom: "0.5px solid #141414",
-                    borderLeft: i < 3 ? `3px solid ${MEDAL[i]}` : "3px solid transparent",
-                    transition: "background 0.15s",
-                    cursor: "default",
-                  }}
-                >
-                  <span style={{ fontFamily: F.mono, fontSize: 13, color: "#333" }}>{i + 1}</span>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    {s.team.crest ? (
-                      <div style={{ position: "relative", width: 18, height: 13 }}>
-                        <Image src={s.team.crest} alt="" fill className="object-contain" unoptimized />
-                      </div>
-                    ) : null}
-                    <span style={{ fontFamily: F.condensed, fontWeight: 600, fontSize: 17, color: "#F2F2F2" }}>{s.player.name}</span>
+              <div style={{ minWidth: "800px" }}>
+                {scorers.map((s, i) => (
+                  <div
+                    key={s.player.id}
+                    className="row-hover"
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "48px 1fr 160px 80px 80px 80px",
+                      alignItems: "center",
+                      padding: "14px 24px",
+                      borderBottom: "0.5px solid #141414",
+                      borderLeft: i < 3 ? `3px solid ${MEDAL[i]}` : "3px solid transparent",
+                      transition: "background 0.15s",
+                      cursor: "default",
+                    }}
+                  >
+                    <span style={{ fontFamily: F.mono, fontSize: 13, color: "#333" }}>{i + 1}</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      {s.team.crest ? (
+                        <div style={{ position: "relative", width: 18, height: 13 }}>
+                          <Image src={s.team.crest} alt="" fill className="object-contain" unoptimized />
+                        </div>
+                      ) : null}
+                      <span style={{ fontFamily: F.condensed, fontWeight: 600, fontSize: 17, color: "#F2F2F2" }}>{s.player.name}</span>
+                    </div>
+                    <span style={{ fontFamily: F.condensed, fontSize: 13, color: "#666" }}>{s.player.nationality}</span>
+                    <span style={{ fontFamily: F.mono, fontSize: 18, fontWeight: 700, color: "#C8102E", textAlign: "center" }}>{s.goals}</span>
+                    <span style={{ fontFamily: F.mono, fontSize: 14, color: "#555", textAlign: "center" }}>{s.assists ?? "–"}</span>
+                    <span style={{ fontFamily: F.mono, fontSize: 14, color: "#555", textAlign: "center" }}>{s.penalties ?? "–"}</span>
                   </div>
-                  <span style={{ fontFamily: F.condensed, fontSize: 13, color: "#666" }}>{s.player.nationality}</span>
-                  <span style={{ fontFamily: F.mono, fontSize: 18, fontWeight: 700, color: "#C8102E", textAlign: "center" }}>{s.goals}</span>
-                  <span style={{ fontFamily: F.mono, fontSize: 14, color: "#555", textAlign: "center" }}>{s.assists ?? "–"}</span>
-                  <span style={{ fontFamily: F.mono, fontSize: 14, color: "#555", textAlign: "center" }}>{s.penalties ?? "–"}</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </>
         ) : (

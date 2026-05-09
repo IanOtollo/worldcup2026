@@ -17,14 +17,14 @@ export default function GroupsPreview({ standings }: Props) {
   const preview = standings.slice(0, 4);
 
   return (
-    <section className="py-24 relative" style={{ background: "#050A05" }}>
+    <section className="py-48 relative" style={{ background: "#050A05" }}>
       {/* Subtle glow */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 50% 60% at 80% 50%, rgba(0,40,160,0.08) 0%, transparent 70%)" }} />
 
-      <div className="max-w-[1440px] mx-auto px-6 relative z-10">
+      <div className="max-w-[1440px] mx-auto px-10 relative z-10">
         {/* Header */}
-        <div className="flex items-end justify-between mb-16" style={{ borderBottom: "0.5px solid #1F1F1F", paddingBottom: "24px" }}>
-          <h2 style={{ fontFamily: F.display, fontSize: "clamp(48px,6vw,64px)", color: "#F2F2F2", lineHeight: 1 }}>
+        <div className="flex items-end justify-between mb-24" style={{ borderBottom: "0.5px solid #1F1F1F", paddingBottom: "32px" }}>
+          <h2 style={{ fontFamily: F.display, fontSize: "clamp(64px,8vw,96px)", color: "#F2F2F2", lineHeight: 1 }}>
             Group Stage
           </h2>
           <span style={{ fontFamily: F.condensed, fontSize: 13, color: "#555", letterSpacing: "0.12em" }}>

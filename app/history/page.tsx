@@ -26,7 +26,11 @@ export default function HistoryPage() {
   return (
     <div style={{ background: "#050A05", minHeight: "100vh" }}>
       {/* Header */}
-      <div className="relative" style={{ padding: "80px 0 48px", borderBottom: "0.5px solid #1F1F1F" }}>
+      <div className="relative" style={{ padding: "80px 0 48px", borderBottom: "0.5px solid #1F1F1F", overflow: "hidden" }}>
+        <div style={{ position: "absolute", right: "-5%", top: "-10%", width: "400px", height: "400px", opacity: 0.1, zIndex: 0 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/assets/soccer_ball_grass.png" alt="" className="w-full h-full object-contain" />
+        </div>
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 70% 80% at 10% 60%, rgba(0,140,50,0.14) 0%, transparent 65%)" }} />
         <div className="max-w-[1440px] mx-auto px-6 relative z-10">
           <h1 style={{ fontFamily: F.display, fontSize: "clamp(48px,8vw,96px)", color: "#F2F2F2", lineHeight: 0.85, marginBottom: 16 }}>

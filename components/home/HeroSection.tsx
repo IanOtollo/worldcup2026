@@ -2,15 +2,18 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 const SLIDES = [
-  "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=1920&q=80",
-  "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1920&q=80",
-  "https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=1920&q=80",
-  "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=1920&q=80",
-  "https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=1920&q=80",
-  "https://images.unsplash.com/photo-1589487391730-58f20eb2c308?w=1920&q=80",
+  { src: "/assets/hero_worldcup_2026.png", venue: "Official Tournament Identity" },
+  { src: "/assets/stadium_composite_all_three.png", venue: "United 2026 Host Nations" },
+  { src: "/assets/att-stadium.jpg", venue: "AT&T Stadium · Arlington" },
+  { src: "/assets/mercedes-benz-stadium.jpg", venue: "Mercedes-Benz Stadium · Atlanta" },
+  { src: "/assets/stadium_usa.png", venue: "Host City · Los Angeles" },
+  { src: "/assets/stadium_mexico.png", venue: "Estadio Azteca · Mexico City" },
+  { src: "/assets/stadium_canada.png", venue: "BC Place · Vancouver" },
+  { src: "/assets/stadium_night_lights.png", venue: "Toronto · BMO Field" },
 ];
 
 export default function HeroSection() {
@@ -23,231 +26,243 @@ export default function HeroSection() {
 
   useEffect(() => {
     if (paused) return;
-    const id = setInterval(advance, 5000);
+    const id = setInterval(advance, 2500);
     return () => clearInterval(id);
   }, [paused, advance]);
 
   return (
     <section
-      className="relative w-full flex items-center justify-center overflow-hidden"
-      style={{ height: "100svh", minHeight: "700px" }}
+      className="relative w-full flex justify-center overflow-hidden"
+      style={{ height: "100svh", minHeight: "750px" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       {/* ── Layer 1: Base ── */}
-      <div className="absolute inset-0" style={{ background: "#050A05" }} />
+      <div className="absolute inset-0" style={{ background: "#020402" }} />
 
-      {/* ── Layer 2: Green atmospheric glow ── */}
-      <div
-        className="absolute inset-0"
-        style={{ background: "radial-gradient(ellipse 70% 90% at 10% 70%, rgba(0,140,50,0.5) 0%, transparent 65%)" }}
+      {/* ── Layer 2: Searchlight Effect ── */}
+      <motion.div
+        animate={{
+          x: ["-20%", "20%", "-20%"],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 50% 100% at 50% 0%, rgba(0,140,50,0.25) 0%, transparent 80%)",
+          filter: "blur(60px)",
+        }}
       />
 
-      {/* ── Layer 3: Blue atmospheric glow ── */}
-      <div
-        className="absolute inset-0"
-        style={{ background: "radial-gradient(ellipse 60% 80% at 90% 50%, rgba(0,40,160,0.45) 0%, transparent 65%)" }}
-      />
-
-      {/* ── Layer 4: Cycling images ── */}
-      {SLIDES.map((src, i) => (
-        <div
-          key={src}
+      {/* ── Layer 3: Dynamic Background Images ── */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={SLIDES[current].src}
+          initial={{ opacity: 0, scale: 1.1 }}
+          animate={{ opacity: 0.7, scale: 1 }}
+          exit={{ opacity: 0, scale: 1.05 }}
+          transition={{ duration: 1.0, ease: [0.4, 0, 0.2, 1] }}
           className="absolute inset-0"
-          style={{
-            opacity: i === current ? 0.18 : 0,
-            transition: "opacity 1400ms ease-in-out",
-          }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={src} alt="" aria-hidden className="w-full h-full object-cover" />
-        </div>
-      ))}
+          <img src={SLIDES[current].src} alt="" aria-hidden className="w-full h-full object-cover" />
+        </motion.div>
+      </AnimatePresence>
 
-      {/* ── Layer 5: Stadium silhouette ── */}
-      <svg
-        className="absolute bottom-0 left-0 w-full pointer-events-none"
-        height="200"
-        viewBox="0 0 1440 200"
-        preserveAspectRatio="none"
-        aria-hidden
-      >
-        <path
-          d="M0,200 L0,155 C80,153 200,138 380,120 C540,103 680,92 800,88 C920,92 1080,103 1240,120 C1380,138 1420,153 1440,155 L1440,200 Z"
-          fill="#000000"
-          fillOpacity="0.75"
-        />
-        <path
-          d="M0,200 L0,170 C120,168 280,158 480,145 C640,133 740,127 800,126 C860,127 960,133 1120,145 C1280,158 1380,168 1440,170 L1440,200 Z"
-          fill="#000000"
-          fillOpacity="0.5"
-        />
-      </svg>
-
-      {/* ── Layer 6: Bottom vignette ── */}
+      {/* ── Layer 4: Atmosphere ── */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "linear-gradient(to top, #050A05 0%, rgba(5,10,5,0.2) 30%, transparent 55%)" }}
+        style={{
+          background: "radial-gradient(circle at 50% 50%, transparent 0%, rgba(0,0,0,0.2) 100%)",
+        }}
       />
-
-      {/* ── Layer 7: Top vignette ── */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, transparent 28%)" }}
+        style={{ background: "linear-gradient(to top, #050A05 0%, transparent 35%)" }}
       />
 
       {/* ── Hero Content ── */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6" style={{ paddingBottom: "160px" }}>
+      <div className="relative z-10 flex flex-col items-center text-center px-6 w-full max-w-[1200px]" style={{ paddingTop: "120px" }}>
+        
+        {/* Cinematic Title: WORLD 2026 CUP */}
+        <div className="relative mb-8">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="flex flex-col items-center"
+          >
+            <span style={{
+              fontFamily: "var(--font-barlow-condensed), sans-serif",
+              fontWeight: 800,
+              fontSize: "clamp(24px, 4vw, 48px)",
+              color: "#FFF",
+              letterSpacing: "0.6em",
+              textTransform: "uppercase",
+              marginBottom: "-12px",
+              textShadow: "0 0 40px rgba(0,0,0,0.8), 0 4px 12px rgba(0,0,0,0.9)",
+            }}>
+              WORLD
+            </span>
+            <div className="relative">
+              {/* Outline Layer */}
+              <h1 style={{
+                fontFamily: "var(--font-bebas-neue), sans-serif",
+                fontSize: "clamp(120px, 18vw, 240px)",
+                color: "transparent",
+                WebkitTextStroke: "1px rgba(255,255,255,0.3)",
+                lineHeight: "0.8",
+                letterSpacing: "-0.02em",
+                position: "absolute",
+                top: "-2px",
+                left: 0,
+                width: "100%",
+              }}>
+                2026
+              </h1>
+              {/* Solid Layer */}
+              <h1 style={{
+                fontFamily: "var(--font-bebas-neue), sans-serif",
+                fontSize: "clamp(120px, 18vw, 240px)",
+                color: "#FFFFFF",
+                lineHeight: "0.8",
+                letterSpacing: "-0.02em",
+                position: "relative",
+                zIndex: 1,
+                textShadow: "0 0 60px rgba(0,0,0,1), 0 10px 40px rgba(0,0,0,1)",
+              }}>
+                2026
+              </h1>
+            </div>
+            <span style={{
+              fontFamily: "var(--font-barlow-condensed), sans-serif",
+              fontWeight: 800,
+              fontSize: "clamp(24px, 4vw, 48px)",
+              color: "#C8102E",
+              letterSpacing: "0.6em",
+              textTransform: "uppercase",
+              marginTop: "-12px",
+              textShadow: "0 0 40px rgba(0,0,0,1), 0 4px 12px rgba(0,0,0,1)",
+            }}>
+              CUP
+            </span>
+          </motion.div>
+        </div>
+
         <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          style={{
-            fontFamily: "var(--font-barlow-condensed), sans-serif",
-            fontWeight: 600,
-            fontSize: "16px",
-            letterSpacing: "0.3em",
-            color: "#888888",
-            textTransform: "uppercase",
-            marginBottom: "16px",
-          }}
-        >
-          FIFA WORLD CUP
-        </motion.p>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.08 }}
-          style={{
-            fontFamily: "var(--font-bebas-neue), sans-serif",
-            fontSize: "clamp(120px, 18vw, 220px)",
-            color: "#FFFFFF",
-            lineHeight: "0.85",
-            letterSpacing: "0.02em",
-          }}
-        >
-          2026
-        </motion.h1>
-
-        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.16 }}
-          style={{
-            width: "200px",
-            height: "1px",
-            background: "rgba(255,255,255,0.15)",
-            margin: "28px auto",
-          }}
-        />
-
-        <motion.p
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ delay: 0.5 }}
           style={{
             fontFamily: "var(--font-barlow-condensed), sans-serif",
-            fontWeight: 300,
-            fontSize: "18px",
-            letterSpacing: "0.15em",
-            color: "#888888",
+            fontWeight: 700,
+            fontSize: "clamp(14px, 1.5vw, 18px)",
+            letterSpacing: "0.5em",
+            color: "#FFF",
             textTransform: "uppercase",
+            marginBottom: "40px",
+            opacity: 0.9,
+            textShadow: "0 2px 12px rgba(0,0,0,1)",
           }}
         >
           USA · CANADA · MEXICO
         </motion.p>
 
-        {/* Countdown imported from CountdownTimer */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-14"
-        >
+        {/* Spaced Countdown */}
+        <div className="flex gap-4 md:gap-8 mb-12">
           <HeroCountdown />
-          <p
-            className="mt-5"
-            style={{
-              fontFamily: "var(--font-dm-mono), monospace",
-              fontSize: "13px",
-              color: "#555555",
-              letterSpacing: "0.1em",
-            }}
-          >
-            11 JUNE — 19 JULY 2026
-          </p>
-        </motion.div>
+        </div>
 
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.42 }}
-          className="mt-12 flex items-center gap-3 flex-wrap justify-center"
-        >
+        {/* Buttons - Angled Broadcast with Trophy Separator */}
+        <div className="flex flex-col sm:flex-row items-center gap-0 mt-10">
           <Link
             href="/fixtures"
-            className="btn-sweep h-12 px-8 flex items-center text-white"
-            style={{
-              fontFamily: "var(--font-barlow-condensed), sans-serif",
-              fontWeight: 700,
-              fontSize: "13px",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              background: "#C8102E",
-              borderRadius: "2px",
+            className="group relative h-[64px] px-16 flex items-center justify-center transition-all duration-300 active:scale-95"
+            style={{ 
+              background: "linear-gradient(135deg, #C8102E 0%, #900A1E 100%)", 
+              clipPath: "polygon(0 0, 100% 0, 88% 100%, 0 100%)",
+              textDecoration: "none",
+              boxShadow: "0 10px 40px rgba(0,0,0,0.4)",
+              minWidth: "280px"
             }}
           >
-            EXPLORE FIXTURES
+            {/* Gold Highlight Line */}
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#FFD700]/40 to-transparent" />
+            
+            {/* Shimmer Effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer" />
+            
+            <span style={{
+              fontFamily: "var(--font-barlow-condensed), sans-serif",
+              fontWeight: 800,
+              fontSize: "16px",
+              letterSpacing: "0.2em",
+              color: "#FFF",
+              textTransform: "uppercase",
+              textShadow: "0 2px 4px rgba(0,0,0,0.3)",
+              position: "relative",
+              zIndex: 10
+            }}>
+              EXPLORE SCHEDULE
+            </span>
           </Link>
+
+          {/* Trophy Separator */}
+          <div className="relative z-20 mx-[-30px] hidden sm:block">
+            <div className="relative w-[100px] h-[120px]">
+              <Image 
+                src="/assets/trophy_overhead.png"
+                alt="World Cup Trophy"
+                fill
+                className="object-contain drop-shadow-[0_0_20px_rgba(255,215,0,0.3)]"
+              />
+            </div>
+          </div>
+
           <Link
             href="/tickets"
-            className="h-12 px-8 flex items-center text-white transition-colors duration-200"
+            className="group relative h-[64px] px-16 flex items-center justify-center transition-all duration-300"
             style={{
+              background: "rgba(255,255,255,0.03)",
+              backdropFilter: "blur(16px)",
+              border: "1px solid rgba(255,255,255,0.15)",
+              clipPath: "polygon(12% 0, 100% 0, 100% 100%, 0 100%)",
+              textDecoration: "none",
+              minWidth: "280px"
+            }}
+          >
+            <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            
+            <span style={{
               fontFamily: "var(--font-barlow-condensed), sans-serif",
               fontWeight: 700,
-              fontSize: "13px",
-              letterSpacing: "0.15em",
+              fontSize: "16px",
+              letterSpacing: "0.2em",
+              color: "#FFF",
               textTransform: "uppercase",
-              border: "1px solid rgba(255,255,255,0.7)",
-              borderRadius: "2px",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.08)")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-          >
-            GET TICKETS
+              position: "relative",
+              zIndex: 10
+            }}>
+              GET TICKETS
+            </span>
           </Link>
-        </motion.div>
+        </div>
       </div>
 
-      {/* ── Slide indicators ── */}
-      <div
-        className="absolute bottom-8 left-0 right-0 flex justify-center items-center gap-2 z-20"
-      >
-        {SLIDES.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrent(i)}
-            aria-label={`Go to slide ${i + 1}`}
-            style={{
-              height: "6px",
-              width: i === current ? "20px" : "6px",
-              borderRadius: "3px",
-              background: i === current ? "#C8102E" : "#333333",
-              border: "none",
-              cursor: "pointer",
-              transition: "width 0.3s ease, background 0.3s ease",
-              padding: 0,
-            }}
-          />
-        ))}
+      {/* ── Slide Progress Bar ── */}
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-white/5">
+        <motion.div
+          key={current}
+          initial={{ width: "0%" }}
+          animate={{ width: "100%" }}
+          transition={{ duration: 2.5, ease: "linear" }}
+          style={{ height: "100%", background: "#C8102E" }}
+        />
       </div>
     </section>
   );
 }
 
-/* ── Inline countdown (avoids a separate client import issue in hero) ── */
 function HeroCountdown() {
   const target = new Date("2026-06-11T00:00:00-05:00").getTime();
   const [t, setT] = useState({ d: 0, h: 0, m: 0, s: 0 });
@@ -268,50 +283,39 @@ function HeroCountdown() {
   }, [target]);
 
   const Block = ({ v, label }: { v: number; label: string }) => (
-    <div className="flex flex-col items-center gap-2">
-      <div
-        style={{
-          width: "100px",
-          height: "88px",
-          border: "0.5px solid rgba(255,255,255,0.15)",
-          background: "rgba(0,0,0,0.3)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <span
-          style={{
-            fontFamily: "var(--font-dm-mono), monospace",
-            fontWeight: 500,
-            fontSize: "clamp(40px,6vw,72px)",
-            color: "#FFFFFF",
-            fontVariantNumeric: "tabular-nums",
-          }}
-        >
-          {String(v).padStart(2, "0")}
-        </span>
-      </div>
-      <span
-        style={{
-          fontFamily: "var(--font-barlow-condensed), sans-serif",
-          fontWeight: 500,
-          fontSize: "11px",
-          color: "#555555",
-          letterSpacing: "0.15em",
-          textTransform: "uppercase",
-        }}
-      >
+    <div className="flex flex-col items-center">
+      <span style={{
+        fontFamily: "var(--font-dm-mono), monospace",
+        fontSize: "clamp(32px, 5vw, 64px)",
+        fontWeight: 500,
+        color: "#FFF",
+        lineHeight: 1,
+        marginBottom: 8,
+      }}>
+        {String(v).padStart(2, "0")}
+      </span>
+      <span style={{
+        fontFamily: "var(--font-barlow-condensed), sans-serif",
+        fontSize: "13px",
+        color: "#888",
+        fontWeight: 700,
+        letterSpacing: "0.2em",
+        textTransform: "uppercase",
+        textShadow: "0 2px 4px rgba(0,0,0,0.5)",
+      }}>
         {label}
       </span>
     </div>
   );
 
   return (
-    <div className="flex gap-4 md:gap-5">
+    <div className="flex items-center gap-8 md:gap-12">
       <Block v={t.d} label="Days" />
+      <div className="w-px h-12 bg-white/10 hidden md:block" />
       <Block v={t.h} label="Hours" />
+      <div className="w-px h-12 bg-white/10 hidden md:block" />
       <Block v={t.m} label="Mins" />
+      <div className="w-px h-12 bg-white/10 hidden md:block" />
       <Block v={t.s} label="Secs" />
     </div>
   );

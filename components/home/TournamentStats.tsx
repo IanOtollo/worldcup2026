@@ -80,14 +80,21 @@ export default function TournamentStats() {
   return (
     <section
       ref={ref}
+      className="relative overflow-hidden"
       style={{
         background: "#0A0A0A",
         borderTop: "0.5px solid #1A1A1A",
         borderBottom: "0.5px solid #1A1A1A",
       }}
     >
+      {/* Background decoration */}
+      <div style={{ position: "absolute", right: "-10%", top: "-20%", width: "500px", height: "140%", opacity: 0.12, zIndex: 0, pointerEvents: "none" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/worldcuptrophy.jpg" alt="" className="w-full h-full object-contain" style={{ filter: "grayscale(1) brightness(0.6)" }} />
+      </div>
+
       <div
-        className="grid grid-cols-2 md:grid-cols-4"
+        className="relative z-10 grid grid-cols-2 md:grid-cols-4"
         style={{ borderLeft: "0.5px solid #1F1F1F" }}
       >
         {STATS.map((s, i) => (

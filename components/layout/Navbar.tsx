@@ -39,7 +39,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="fixed top-0 left-0 right-0 z-50 h-[60px] flex items-center"
+        className="fixed top-0 left-0 right-0 z-50 h-[80px] flex items-center"
         style={{
           background: scrolled
             ? "rgba(5,10,5,0.97)"
@@ -53,14 +53,18 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex-shrink-0"
-            style={{ fontFamily: "var(--font-bebas-neue), sans-serif" }}
+            className="flex-shrink-0 flex flex-col items-center gap-1 py-1"
+            style={{ fontFamily: "var(--font-bebas-neue), sans-serif", textDecoration: "none" }}
           >
+            <div style={{ height: 28, width: 20, position: "relative", flexShrink: 0 }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/assets/worldcuptrophy.jpg" alt="" className="w-full h-full object-contain" />
+            </div>
             <span
-              className="text-[22px] text-white px-3 py-1 tracking-[0.05em]"
-              style={{ border: "0.5px solid #C8102E", letterSpacing: "0.05em" }}
+              className="text-[12px] md:text-[14px] text-white tracking-[0.15em] leading-none"
+              style={{ letterSpacing: "0.2em", whiteSpace: "nowrap" }}
             >
-              FWC <span style={{ color: "#C8102E" }}>26</span>
+              FIFA WORLD CUP <span style={{ color: "#C8102E" }}>2026</span>
             </span>
           </Link>
 
@@ -139,7 +143,7 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="fixed inset-0 z-40 flex flex-col pt-[60px] px-8 pb-12 overflow-y-auto"
+            className="fixed inset-0 z-40 flex flex-col pt-[80px] px-8 pb-12 overflow-y-auto"
             style={{ background: "rgba(5,10,5,0.99)" }}
           >
             <div className="flex flex-col gap-6 pt-10">

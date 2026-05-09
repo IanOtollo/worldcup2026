@@ -23,65 +23,62 @@ function MatchRow({ match }: { match: Match }) {
 
   return (
     <div
-      className="row-hover"
+      className="row-hover flex flex-col md:grid md:grid-cols-[1fr_auto_1fr_auto] items-center py-6 md:py-0 md:h-[72px] px-6 border-b border-[#141414]"
       style={{
-        display: "grid",
-        gridTemplateColumns: "1fr auto 1fr auto",
-        alignItems: "center",
-        padding: "0 24px",
-        height: 72,
-        borderBottom: "0.5px solid #141414",
         background: isLive ? "rgba(200,16,46,0.04)" : "transparent",
         borderLeft: isLive ? "2px solid #C8102E" : "2px solid transparent",
         transition: "background 0.15s, border-color 0.15s",
         cursor: "default",
       }}
     >
-      {/* Home */}
-      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-        {match.homeTeam.crest ? (
-          <div style={{ position: "relative", width: 28, height: 20, flexShrink: 0 }}>
-            <Image src={match.homeTeam.crest} alt="" fill className="object-contain" unoptimized />
-          </div>
-        ) : null}
-        <span style={{ fontFamily: F.condensed, fontWeight: 600, fontSize: 18, color: isDone && !homeWin ? "#444" : "#F2F2F2", textTransform: "uppercase", letterSpacing: "0.03em" }}>
-          {match.homeTeam.name}
-        </span>
+      {/* Teams Container (Top on mobile, split on desktop) */}
+      <div className="flex w-full items-center justify-between md:contents">
+        {/* Home */}
+        <div className="flex items-center gap-3 md:flex-row">
+          {match.homeTeam.crest ? (
+            <div style={{ position: "relative", width: 28, height: 20, flexShrink: 0 }}>
+              <Image src={match.homeTeam.crest} alt="" fill className="object-contain" unoptimized />
+            </div>
+          ) : null}
+          <span className="text-lg md:text-[18px]" style={{ fontFamily: F.condensed, fontWeight: 600, color: isDone && !homeWin ? "#444" : "#F2F2F2", textTransform: "uppercase", letterSpacing: "0.03em" }}>
+            {match.homeTeam.name}
+          </span>
+        </div>
+
+        {/* Score / Time (Center on desktop, between teams on mobile) */}
+        <div className="flex flex-col items-center min-w-[100px] px-4">
+          {isLive && (
+            <div className="flex items-center gap-1.5 mb-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C8102E] animate-pulse" />
+              <span style={{ fontFamily: F.mono, fontSize: 11, color: "#C8102E", letterSpacing: "0.12em" }}>LIVE</span>
+            </div>
+          )}
+          <span className="text-2xl md:text-[24px]" style={{ fontFamily: F.mono, fontWeight: 500, color: isLive ? "#C8102E" : "#F2F2F2", fontVariantNumeric: "tabular-nums" }}>
+            {isDone || isLive
+              ? `${match.score.fullTime.home ?? 0} - ${match.score.fullTime.away ?? 0}`
+              : new Date(match.utcDate).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false })}
+          </span>
+          {isDone && (
+            <span style={{ fontFamily: F.condensed, fontSize: 10, color: "#444", letterSpacing: "0.12em", textTransform: "uppercase" }}>FINAL</span>
+          )}
+        </div>
+
+        {/* Away */}
+        <div className="flex items-center gap-3 justify-end">
+          <span className="text-lg md:text-[18px] text-right" style={{ fontFamily: F.condensed, fontWeight: 600, color: isDone && !awayWin ? "#444" : "#F2F2F2", textTransform: "uppercase", letterSpacing: "0.03em" }}>
+            {match.awayTeam.name}
+          </span>
+          {match.awayTeam.crest ? (
+            <div style={{ position: "relative", width: 28, height: 20, flexShrink: 0 }}>
+              <Image src={match.awayTeam.crest} alt="" fill className="object-contain" unoptimized />
+            </div>
+          ) : null}
+        </div>
       </div>
 
-      {/* Score / Time */}
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", minWidth: 88, padding: "0 16px" }}>
-        {isLive && (
-          <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#C8102E", animation: "pulse-dot 1.2s infinite" }} />
-            <span style={{ fontFamily: F.mono, fontSize: 11, color: "#C8102E", letterSpacing: "0.12em" }}>LIVE</span>
-          </div>
-        )}
-        <span style={{ fontFamily: F.mono, fontSize: 24, fontWeight: 500, color: isLive ? "#C8102E" : "#F2F2F2", fontVariantNumeric: "tabular-nums" }}>
-          {isDone || isLive
-            ? `${match.score.fullTime.home ?? 0} - ${match.score.fullTime.away ?? 0}`
-            : new Date(match.utcDate).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false })}
-        </span>
-        {isDone && (
-          <span style={{ fontFamily: F.condensed, fontSize: 10, color: "#444", letterSpacing: "0.12em", textTransform: "uppercase" }}>FINAL</span>
-        )}
-      </div>
-
-      {/* Away */}
-      <div style={{ display: "flex", alignItems: "center", gap: 12, justifyContent: "flex-end" }}>
-        <span style={{ fontFamily: F.condensed, fontWeight: 600, fontSize: 18, color: isDone && !awayWin ? "#444" : "#F2F2F2", textTransform: "uppercase", letterSpacing: "0.03em" }}>
-          {match.awayTeam.name}
-        </span>
-        {match.awayTeam.crest ? (
-          <div style={{ position: "relative", width: 28, height: 20, flexShrink: 0 }}>
-            <Image src={match.awayTeam.crest} alt="" fill className="object-contain" unoptimized />
-          </div>
-        ) : null}
-      </div>
-
-      {/* Meta */}
-      <div style={{ textAlign: "right", paddingLeft: 24, minWidth: 120 }}>
-        <span style={{ fontFamily: F.condensed, fontSize: 11, color: "#444", letterSpacing: "0.1em", display: "block", textTransform: "uppercase" }}>
+      {/* Meta (Full width on mobile, right on desktop) */}
+      <div className="mt-4 md:mt-0 md:pl-6 w-full md:w-auto text-center md:text-right md:min-w-[140px]">
+        <span style={{ fontFamily: F.condensed, fontSize: 11, color: "#444", letterSpacing: "0.1em", textTransform: "uppercase" }}>
           {match.group ?? match.stage}
         </span>
       </div>

@@ -2,14 +2,15 @@ import { history } from "@/lib/data/history";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
-interface Props { params: { year: string } }
+interface Props { params: Promise<{ year: string }> }
 
 export function generateStaticParams() {
   return history.map((t) => ({ year: t.year.toString() }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const t = history.find((h) => h.year.toString() === params.year);
+  const { year } = await params;
+  const t = history.find((h) => h.year.toString() === year);
   return {
     title: t ? `${t.year} FIFA World Cup — ${t.host}` : "World Cup History",
     description: t ? `${t.champion} won the ${t.year} FIFA World Cup hosted in ${t.host}.` : "",
@@ -22,8 +23,9 @@ const F = {
   mono: "var(--font-dm-mono), monospace",
 };
 
-export default function HistoryYearPage({ params }: Props) {
-  const t = history.find((h) => h.year.toString() === params.year);
+export default async function HistoryYearPage({ params }: Props) {
+  const { year } = await params;
+  const t = history.find((h) => h.year.toString() === year);
   if (!t) return notFound();
 
   const leftCol = [

@@ -54,10 +54,11 @@ export default function AnthemsPage() {
               <div className="img-hover-scale" style={{ position: "relative", aspectRatio: "16/9", overflow: "hidden" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={`https://img.youtube.com/vi/${anthem.id}/maxresdefault.jpg`}
+                  src={`https://img.youtube.com/vi/${anthem.id}/0.jpg`}
                   alt={anthem.title}
                   className="img-scale"
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  referrerPolicy="no-referrer"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", background: "#111" }}
                 />
                 {/* Gradient overlay */}
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 55%)", pointerEvents: "none" }} />

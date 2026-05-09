@@ -21,7 +21,7 @@ export const venues: Venue[] = [
     capacity: 82500,
     surface: "Artificial",
     opened: 2010,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/MetLife_Stadium.jpg/1280px-MetLife_Stadium.jpg",
+    image: "/assets/stadium_usa.png",
     description: "Home of the New York Giants and Jets, MetLife Stadium is one of the premier venues in North America."
   },
   {
@@ -33,7 +33,7 @@ export const venues: Venue[] = [
     capacity: 80000,
     surface: "Artificial",
     opened: 2009,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/AT%26T_Stadium_2015.jpg/1280px-AT%26T_Stadium_2015.jpg",
+    image: "/assets/att-stadium.jpg",
     description: "An architectural marvel with a retractable roof, AT&T Stadium is home to the Dallas Cowboys."
   },
   {
@@ -45,7 +45,7 @@ export const venues: Venue[] = [
     capacity: 70240,
     surface: "Artificial",
     opened: 2020,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/SoFi_Stadium_2020.jpg/1280px-SoFi_Stadium_2020.jpg",
+    image: "/assets/stadium_night_lights.png",
     description: "The state-of-the-art home of the LA Rams and Chargers, featuring the massive Infinity Screen."
   },
   {
@@ -57,7 +57,7 @@ export const venues: Venue[] = [
     capacity: 88565,
     surface: "Natural Grass",
     opened: 1922,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Rose_Bowl_Stadium.jpg/1280px-Rose_Bowl_Stadium.jpg",
+    image: "/assets/rose-bowl.jpg",
     description: "A historic National Historic Landmark, famous for hosting the 1994 World Cup Final."
   },
   {
@@ -69,7 +69,7 @@ export const venues: Venue[] = [
     capacity: 71000,
     surface: "Artificial",
     opened: 2017,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Mercedes-Benz_Stadium.jpg/1280px-Mercedes-Benz_Stadium.jpg",
+    image: "/assets/mercedes-benz-stadium.jpg",
     description: "A multi-purpose stadium with a unique pinwheel retractable roof."
   },
   {
@@ -81,7 +81,7 @@ export const venues: Venue[] = [
     capacity: 68500,
     surface: "Natural Grass",
     opened: 2014,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Levi%27s_Stadium.jpg/1280px-Levi%27s_Stadium.jpg",
+    image: "/assets/levis-stadium.jpg",
     description: "The high-tech home of the San Francisco 49ers."
   },
   {
@@ -93,7 +93,7 @@ export const venues: Venue[] = [
     capacity: 65326,
     surface: "Natural Grass",
     opened: 1987,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Hard_Rock_Stadium_2019.jpg/1280px-Hard_Rock_Stadium_2019.jpg",
+    image: "/assets/hard-rock-stadium.jpg",
     description: "A major sports and entertainment destination in South Florida."
   },
   {
@@ -105,7 +105,7 @@ export const venues: Venue[] = [
     capacity: 65878,
     surface: "Artificial",
     opened: 2002,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/thirty/Gillette_Stadium.jpg/1280px-Gillette_Stadium.jpg",
+    image: "/assets/gillette-stadium.png",
     description: "The home of the New England Patriots and Revolution."
   },
   {
@@ -117,7 +117,7 @@ export const venues: Venue[] = [
     capacity: 69796,
     surface: "Natural Grass",
     opened: 2003,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Lincoln_Financial_Field.jpg/1280px-Lincoln_Financial_Field.jpg",
+    image: "/assets/lincoln-financial-field.png",
     description: "The energetic home of the Philadelphia Eagles."
   },
   {
@@ -129,7 +129,7 @@ export const venues: Venue[] = [
     capacity: 76416,
     surface: "Natural Grass",
     opened: 1972,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Arrowhead_Stadium.jpg/1280px-Arrowhead_Stadium.jpg",
+    image: "/assets/arrowhead-stadium.jpg",
     description: "One of the loudest and most iconic stadiums in the NFL."
   },
   {
@@ -141,7 +141,7 @@ export const venues: Venue[] = [
     capacity: 20738,
     surface: "Natural Grass",
     opened: 2021,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Q2_Stadium.jpg/1280px-Q2_Stadium.jpg",
+    image: "/assets/q2-stadium.jpg",
     description: "A soccer-specific stadium and home of Austin FC."
   },
   {
@@ -153,7 +153,7 @@ export const venues: Venue[] = [
     capacity: 87523,
     surface: "Natural Grass",
     opened: 1966,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Azteca_Stadium.jpg/1280px-Azteca_Stadium.jpg",
+    image: "/assets/stadium_mexico.png",
     description: "One of the most legendary football cathedrals in the world, having hosted two WC finals."
   },
   {
@@ -165,7 +165,7 @@ export const venues: Venue[] = [
     capacity: 53500,
     surface: "Natural Grass",
     opened: 2015,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Estadio_BBVA_Bancomer.jpg/1280px-Estadio_BBVA_Bancomer.jpg",
+    image: "/assets/estadio-bbva.jpg",
     description: "Known as 'The Steel Giant', it offers stunning views of the Cerro de la Silla."
   },
   {
@@ -177,7 +177,7 @@ export const venues: Venue[] = [
     capacity: 49850,
     surface: "Natural Grass",
     opened: 2010,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Estadio_Akron.jpg/1280px-Estadio_Akron.jpg",
+    image: "/assets/estadio-akron.jpg",
     description: "The home of Chivas, featuring a unique volcano-like design."
   },
   {
@@ -189,7 +189,7 @@ export const venues: Venue[] = [
     capacity: 45736,
     surface: "Hybrid",
     opened: 2007,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/BMO_Field.jpg/1280px-BMO_Field.jpg",
+    image: "/assets/bmo-field.jpg",
     description: "Canada's national soccer stadium and home of Toronto FC."
   },
   {
@@ -201,7 +201,7 @@ export const venues: Venue[] = [
     capacity: 54500,
     surface: "Artificial",
     opened: 1983,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/BC_Place_2014.jpg/1280px-BC_Place_2014.jpg",
+    image: "/assets/stadium_canada.png",
     description: "A major stadium with a retractable roof system, located in the heart of Vancouver."
   }
 ];

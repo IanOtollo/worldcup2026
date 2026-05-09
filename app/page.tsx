@@ -29,14 +29,6 @@ export default async function Home() {
       <TopScorersPreview scorers={scorers} />
       <VenueShowcase />
 
-      {/* Visual Break / Editorial Quote */}
-      <section className="py-48 bg-black border-y border-border">
-        <div className="container mx-auto px-4 text-center">
-          <blockquote className="font-bebas text-[48px] md:text-[80px] text-white leading-[0.9] max-w-5xl mx-auto uppercase">
-            "Three Nations. One Dream. The Greatest Show on Earth Returns to North America."
-          </blockquote>
-        </div>
-      </section>
     </div>
   );
 }

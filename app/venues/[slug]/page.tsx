@@ -3,14 +3,15 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
-interface Props { params: { slug: string } }
+interface Props { params: Promise<{ slug: string }> }
 
 export function generateStaticParams() {
   return venues.map((v) => ({ slug: v.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const v = venues.find((v) => v.slug === params.slug);
+  const { slug } = await params;
+  const v = venues.find((v) => v.slug === slug);
   return {
     title: v ? `${v.name} — FIFA World Cup 2026` : "Venue — FIFA World Cup 2026",
     description: v?.description ?? "",
@@ -23,8 +24,9 @@ const F = {
   mono: "var(--font-dm-mono), monospace",
 };
 
-export default function VenueDetailPage({ params }: Props) {
-  const venue = venues.find((v) => v.slug === params.slug);
+export default async function VenueDetailPage({ params }: Props) {
+  const { slug } = await params;
+  const venue = venues.find((v) => v.slug === slug);
   if (!venue) return notFound();
 
   const stats = [

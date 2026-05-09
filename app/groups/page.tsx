@@ -53,47 +53,49 @@ export default async function GroupsPage() {
                 </div>
 
                 {/* Table */}
-                <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                  <thead>
-                    <tr style={{ borderBottom: "0.5px solid #1A1A1A" }}>
-                      {["Team","P","W","D","L","GF","GA","GD","Pts"].map((h) => (
-                        <th key={h} style={{ fontFamily: F.condensed, fontWeight: 500, fontSize: 10, color: "#444", letterSpacing: "0.12em", textTransform: "uppercase", padding: "8px 6px", textAlign: h === "Team" ? "left" : "center" }}>{h}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {group.table.map((row, ri) => (
-                      <tr
-                        key={row.team.id}
-                        className="row-hover-md"
-                        style={{
-                          borderBottom: "0.5px solid #141414",
-                          borderLeft: ri < 2 ? "3px solid #009B3A" : ri === 2 ? "3px solid #C9A84C" : "3px solid transparent",
-                          background: ri < 2 ? "rgba(0,155,58,0.04)" : ri === 2 ? "rgba(201,168,76,0.04)" : "transparent",
-                          transition: "background 0.15s",
-                        }}
-                      >
-                        <td style={{ padding: "9px 6px 9px 10px" }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                            {row.team.crest ? (
-                              <div style={{ position: "relative", width: 16, height: 12, flexShrink: 0 }}>
-                                <Image src={row.team.crest} alt="" fill className="object-contain" unoptimized />
-                              </div>
-                            ) : null}
-                            <span style={{ fontFamily: F.condensed, fontWeight: 500, fontSize: 13, color: "#F2F2F2" }}>
-                              {row.team.tla ?? row.team.name.slice(0, 3).toUpperCase()}
-                            </span>
-                          </div>
-                        </td>
-                        {[row.playedGames, row.won, row.draw, row.lost, row.goalsFor, row.goalsAgainst, row.goalDifference, row.points].map((v, ci) => (
-                          <td key={ci} style={{ fontFamily: F.mono, fontSize: 13, color: ci === 7 ? "#F2F2F2" : "#555", textAlign: "center", padding: "9px 4px", fontWeight: ci === 7 ? 700 : 400 }}>
-                            {ci === 6 && typeof v === "number" && v > 0 ? `+${v}` : v}
-                          </td>
+                <div className="overflow-x-auto">
+                  <table style={{ width: "100%", minWidth: "400px", borderCollapse: "collapse" }}>
+                    <thead>
+                      <tr style={{ borderBottom: "0.5px solid #1A1A1A" }}>
+                        {["Team","P","W","D","L","GF","GA","GD","Pts"].map((h) => (
+                          <th key={h} style={{ fontFamily: F.condensed, fontWeight: 500, fontSize: 10, color: "#444", letterSpacing: "0.12em", textTransform: "uppercase", padding: "8px 6px", textAlign: h === "Team" ? "left" : "center" }}>{h}</th>
                         ))}
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {group.table.map((row, ri) => (
+                        <tr
+                          key={row.team.id}
+                          className="row-hover-md"
+                          style={{
+                            borderBottom: "0.5px solid #141414",
+                            borderLeft: ri < 2 ? "3px solid #009B3A" : ri === 2 ? "3px solid #C9A84C" : "3px solid transparent",
+                            background: ri < 2 ? "rgba(0,155,58,0.04)" : ri === 2 ? "rgba(201,168,76,0.04)" : "transparent",
+                            transition: "background 0.15s",
+                          }}
+                        >
+                          <td style={{ padding: "9px 6px 9px 10px" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                              {row.team.crest ? (
+                                <div style={{ position: "relative", width: 16, height: 12, flexShrink: 0 }}>
+                                  <Image src={row.team.crest} alt="" fill className="object-contain" unoptimized />
+                                </div>
+                              ) : null}
+                              <span style={{ fontFamily: F.condensed, fontWeight: 500, fontSize: 13, color: "#F2F2F2" }}>
+                                {row.team.tla ?? row.team.name.slice(0, 3).toUpperCase()}
+                              </span>
+                            </div>
+                          </td>
+                          {[row.playedGames, row.won, row.draw, row.lost, row.goalsFor, row.goalsAgainst, row.goalDifference, row.points].map((v, ci) => (
+                            <td key={ci} style={{ fontFamily: F.mono, fontSize: 13, color: ci === 7 ? "#F2F2F2" : "#555", textAlign: "center", padding: "9px 4px", fontWeight: ci === 7 ? 700 : 400 }}>
+                              {ci === 6 && typeof v === "number" && v > 0 ? `+${v}` : v}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
 
                 <div style={{ padding: "10px 20px", borderTop: "0.5px solid #141414" }}>
                   <span style={{ fontFamily: F.condensed, fontSize: 10, color: "#333", letterSpacing: "0.1em", textTransform: "uppercase" }}>
