@@ -1,26 +1,153 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-bg: #050A05;
+  --color-surface: #0D0D0D;
+  --color-surface2: #141414;
+  --color-surface3: #1A1A1A;
+  --color-border: #1F1F1F;
+  --color-border-hover: #333333;
+  --color-text-primary: #F2F2F2;
+  --color-text-secondary: #888888;
+  --color-text-muted: #555555;
+  --color-fifa-red: #C8102E;
+  --color-fifa-green: #009B3A;
+  --color-fifa-blue: #0033A0;
+  --color-fifa-gold: #C9A84C;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.6; transform: scale(1.4); }
+  }
+
+  @keyframes count-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes sweep-in {
+    from { transform: translateX(-100%); }
+    to   { transform: translateX(0); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+:root {
+  --background: #050A05;
+  --foreground: #F2F2F2;
 }
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #050A05;
+  color: #F2F2F2;
+  font-family: var(--font-barlow), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── Typography utilities ─── */
+.font-display   { font-family: var(--font-bebas-neue), sans-serif; letter-spacing: 0.02em; }
+.font-heading   { font-family: var(--font-barlow-condensed), sans-serif; font-weight: 700; text-transform: uppercase; }
+.font-sub       { font-family: var(--font-barlow-condensed), sans-serif; font-weight: 400; }
+.font-body      { font-family: var(--font-barlow), sans-serif; font-weight: 400; line-height: 1.7; }
+.font-stats     { font-family: var(--font-dm-mono), monospace; font-variant-numeric: tabular-nums; font-weight: 500; }
+.label-meta     {
+  font-family: var(--font-barlow-condensed), sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #555555;
+}
+
+/* ─── Borders ─── */
+.border-thin        { border: 0.5px solid #1F1F1F; }
+.border-thin-hover  { border: 0.5px solid #333333; }
+
+/* ─── Atmospheric glows ─── */
+.glow-green {
+  background: radial-gradient(ellipse 70% 90% at 10% 70%, rgba(0,140,50,0.22) 0%, transparent 65%);
+}
+.glow-blue {
+  background: radial-gradient(ellipse 60% 80% at 90% 50%, rgba(0,40,160,0.18) 0%, transparent 65%);
+}
+.glow-green-top {
+  background: radial-gradient(ellipse 60% 50% at 15% 0%, rgba(0,140,50,0.18) 0%, transparent 60%);
+}
+
+/* ─── Animations ─── */
+.animate-marquee     { animation: marquee 30s linear infinite; }
+.animate-pulse-dot   { animation: pulse-dot 1.2s ease-in-out infinite; }
+
+/* ─── CTA button sweep ─── */
+.btn-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.btn-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.12);
+  transform: translateX(-101%);
+  transition: transform 0.3s ease;
+}
+.btn-sweep:hover::after {
+  transform: translateX(0);
+}
+
+/* ─── Nav link underline reveal ─── */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #C8102E;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: #050A05; }
+::-webkit-scrollbar-thumb { background: #1F1F1F; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #333333; }
+
+/* ─── No-scrollbar utility ─── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ─── Server-component hover utilities (no JS needed) ─── */
+.row-hover:hover          { background: #0D0D0D !important; }
+.row-hover-md:hover       { background: #141414 !important; }
+.card-hover:hover         { border-color: #333333 !important; }
+.img-hover-scale:hover img { transform: scale(1.04); }
+.img-scale                 { transition: transform 0.4s ease; }
+.text-hover-white:hover   { color: #F2F2F2 !important; }
+.text-hover-red:hover     { color: #C8102E !important; }
+.btn-hover-darkred:hover  { background: #A00C24 !important; }
